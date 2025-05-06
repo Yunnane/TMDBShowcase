@@ -1,0 +1,22 @@
+# Android/Gradle files
+.gradle
+/.idea
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# System files
+.DS_Store
+
+# Build files
+/build
+/captures
+/externalNativeBuild
+/cxx
+
+# Local configuration
+local.properties
