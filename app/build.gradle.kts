@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.coil.compose)
     implementation(libs.leanback)
-
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
