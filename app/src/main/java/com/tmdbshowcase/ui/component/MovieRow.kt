@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.tmdbshowcase.Tile
+import com.tmdbshowcase.ui.model.Tile
 
 @Composable
 fun MovieRow(rowTitle: String, tiles: List<Tile>) {

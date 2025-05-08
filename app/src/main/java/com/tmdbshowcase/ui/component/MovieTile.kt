@@ -5,10 +5,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,14 +22,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.tmdbshowcase.R
-import com.tmdbshowcase.Tile
 import com.tmdbshowcase.constants.Constants.IMAGE_URL
+import com.tmdbshowcase.ui.model.Tile
 
 @Composable
 fun MovieTile(tile: Tile) {
@@ -37,12 +39,12 @@ fun MovieTile(tile: Tile) {
     val isFocused = interactionSource.collectIsFocusedAsState()
 
     val fontSizeTitleSp = LocalDensity.current.run {
-        (tile.size.width.value * 0.05f).sp
+        (tile.size.width.value * 0.1f).sp
     }
     val fontSizeDetailsSp = LocalDensity.current.run {
-        (tile.size.width.value * 0.04f).sp
+        (tile.size.width.value * 0.05f).sp
     }
-    val shape = RoundedCornerShape(12.dp)
+    val shape = RoundedCornerShape(8.dp)
 
     val votePercentage = (tile.movie.vote_average * 10).toInt()
 
@@ -67,48 +69,44 @@ fun MovieTile(tile: Tile) {
                 .fillMaxSize()
                 .clip(shape),
             model = tile.movie.poster_path?.let { "$IMAGE_URL$it" },
-            placeholder = painterResource(R.drawable.image),
-            error = painterResource(R.drawable.image),
+            placeholder = painterResource(R.drawable.placeholder),
+            error = painterResource(R.drawable.placeholder),
             contentDescription = tile.movie.title,
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Crop
         )
 
         if (isFocused.value) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.9f))
-                    .align(Alignment.BottomStart)
-                    .padding(vertical = 2.dp),
-                contentAlignment = Alignment.Center
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = tile.movie.title,
-                        fontSize = fontSizeTitleSp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.LightGray,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        lineHeight = fontSizeTitleSp * 1.3
-                    )
-                    Text(
-                        text = "Rating: $votePercentage%",
-                        fontSize = fontSizeDetailsSp,
-                        color = Color.Gray,
-                        maxLines = 1,
-                        lineHeight = fontSizeDetailsSp * 1.3
-                    )
-                    Text(
-                        text = "Released: ${tile.movie.release_date}",
-                        fontSize = fontSizeDetailsSp,
-                        color = Color.Gray,
-                        maxLines = 1,
-                        lineHeight = fontSizeDetailsSp * 1.3
-                    )
-                }
+                Text(
+                    text = tile.movie.title,
+                    fontSize = fontSizeTitleSp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.LightGray,
+                    overflow = TextOverflow.Clip,
+                    textAlign = TextAlign.Center,
+                    lineHeight = fontSizeTitleSp * 1.5
+                )
+                Text(
+                    text = stringResource(R.string.rating, votePercentage),
+                    fontSize = fontSizeDetailsSp,
+                    color = Color.Gray,
+                    maxLines = 1,
+                    lineHeight = fontSizeDetailsSp * 1.5
+                )
+                Text(
+                    text = stringResource(R.string.released_date, tile.movie.release_date),
+                    fontSize = fontSizeDetailsSp,
+                    color = Color.Gray,
+                    maxLines = 1,
+                    lineHeight = fontSizeDetailsSp * 1.5
+                )
             }
         }
     }
