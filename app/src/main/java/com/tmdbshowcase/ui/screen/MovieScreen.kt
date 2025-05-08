@@ -39,8 +39,7 @@ fun MovieScreen(viewModel: MovieViewModel) {
             viewModel.getTopRatedMovies(apiKey)
             viewModel.getUpcomingMovies(apiKey)
         }
-
-        if (popularMovies == null && topRatedMovies == null && upcomingMovies == null) {
+        if (popularMovies == null || topRatedMovies == null || upcomingMovies == null) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center

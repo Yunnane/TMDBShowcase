@@ -4,8 +4,8 @@
     <string name="upcoming_movies">Upcoming</string>
     <string name="popular_movies">Popular movies</string>
     <string name="top_rated_movies">Top rated</string>
-    <string name="placeholder_text">$s cannot be displayed.</string>
+    <string name="placeholder_text">%s cannot be displayed.</string>
     <string name="screen_title">TMDB Showcase App</string>
-    <string name="rating">Rating: $s</string>
-    <string name="released_date">Released date: $s</string>
+    <string name="rating">Rating: %d%%</string>
+    <string name="released_date">Released date: %s</string>
 </resources>
