@@ -12,12 +12,30 @@ import kotlinx.coroutines.launch
 class MovieViewModel : ViewModel() {
     private val repository = MovieRepository(RetrofitInstance.tmdbApi)
 
-    private val _movies = MutableLiveData<MovieResponse>()
-    val movies: LiveData<MovieResponse> = _movies
+    private val _popularMovies = MutableLiveData<MovieResponse>()
+    val popularMovies: LiveData<MovieResponse> = _popularMovies
+
+    private val _topRatedMovies = MutableLiveData<MovieResponse>()
+    val topRatedMovies: LiveData<MovieResponse> = _topRatedMovies
+
+    private val _upcomingMovies = MutableLiveData<MovieResponse>()
+    val upcomingMovies: LiveData<MovieResponse> = _upcomingMovies
 
     fun getPopularMovies(authHeader: String) {
         viewModelScope.launch {
-            _movies.value = repository.getPopularMovies(authHeader)
+            _popularMovies.value = repository.getPopularMovies(authHeader)
+        }
+    }
+
+    fun getTopRatedMovies(authHeader: String) {
+        viewModelScope.launch {
+            _topRatedMovies.value = repository.getTopRatedMovies(authHeader)
+        }
+    }
+
+    fun getUpcomingMovies(authHeader: String) {
+        viewModelScope.launch {
+            _upcomingMovies.value = repository.getUpcomingMovies(authHeader)
         }
     }
 }

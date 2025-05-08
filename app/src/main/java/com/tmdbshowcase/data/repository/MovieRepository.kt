@@ -23,4 +23,38 @@ class MovieRepository(private val api: TmdbApi) {
             return emptyMovieResponse
         }
     }
+
+    suspend fun getTopRatedMovies(authHeader: String): MovieResponse {
+        val emptyMovieResponse = MovieResponse(0, emptyList(), 0, 0)
+
+        return try {
+            api.getTopRatedMovies(authHeader)
+        } catch (e: HttpException) {
+            Log.e("MovieRepository", "HttpException occurred: $e.")
+            return emptyMovieResponse
+        } catch (e: IOException) {
+            Log.e("MovieRepository", "IOException occurred: $e.")
+            return emptyMovieResponse
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Unknown exception occurred: $e.")
+            return emptyMovieResponse
+        }
+    }
+
+    suspend fun getUpcomingMovies(authHeader: String): MovieResponse {
+        val emptyMovieResponse = MovieResponse(0, emptyList(), 0, 0)
+
+        return try {
+            api.getUpcomingMovies(authHeader)
+        } catch (e: HttpException) {
+            Log.e("MovieRepository", "HttpException occurred: $e.")
+            return emptyMovieResponse
+        } catch (e: IOException) {
+            Log.e("MovieRepository", "IOException occurred: $e.")
+            return emptyMovieResponse
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Unknown exception occurred: $e.")
+            return emptyMovieResponse
+        }
+    }
 }

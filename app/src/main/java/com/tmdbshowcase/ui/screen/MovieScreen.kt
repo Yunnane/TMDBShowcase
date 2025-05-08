@@ -17,7 +17,7 @@ import com.tmdbshowcase.viewmodel.MovieViewModel
 
 @Composable
 fun MovieScreen(viewModel: MovieViewModel) {
-    val movieResponse by viewModel.movies.observeAsState()
+    val movieResponse by viewModel.popularMovies.observeAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getPopularMovies("")
